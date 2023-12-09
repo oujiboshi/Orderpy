@@ -9,8 +9,8 @@ def authentication(role,username,password,switch=False):
         roles,usrname,passwd = array[0],array[1],array[2]
         if usrname == username and passwd == password:
             switch = True
-            global access
-            access = array
+            global account_access
+            account_access = array
     return switch
 
 def login_session(role=db_user):
@@ -30,7 +30,7 @@ def login_session(role=db_user):
         verify = authentication(role,username,password)
         if verify == True:
             print("Login Berhasil")
-            print(access)
+            print(account_access)
             input()
             return 0
         else:
