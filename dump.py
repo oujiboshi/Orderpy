@@ -1,27 +1,15 @@
 import core
 
-# db = core.read_csv('database/user.csv')
-# encrypt = core.encryption('database/user.csv',shift=0)
-# decrypt = core.decryption('database/user.csv',shift=0)
-# print(encrypt)
-# print(decrypt)
-
-# data = ['user','aku','boshi']
-# encrypt = core.encryption(data)
-# print(encrypt)
-# decrypt = core.decryption(encrypt)
-# print(decrypt)
-
-file = 'database/user.csv'
+file_user = 'database/user.csv'
+file_admin = 'database/admin.csv'
 
 role = input("Role: ")
 username = input("Username: ")
-password = input("Password:")
+password = input("Password: ")
 
 data = [role,username,password]
-secure = core.encryption(data)
-print(secure)
-original = core.decryption(secure)
-print(original)
-# decrypt = core.decryption_db(file)
-# print(decrypt)
+core.append_db(file_admin,data,encrypt=True)
+watch = core.encryption_db(file_admin,decrypt=True)
+print(watch)
+# watch = core.encryption_db(file_admin,decrypt=False)
+# print(watch)
