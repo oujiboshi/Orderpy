@@ -54,4 +54,3 @@ def encryption_db(database,shift=16,decrypt=False):
             mod = encryption(array,shift,decrypt=True)
         mod_data.append(mod)
     return mod_data
-

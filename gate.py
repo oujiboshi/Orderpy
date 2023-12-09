@@ -13,6 +13,12 @@ def authentication(role,username,password,switch=False):
             account_access = array
     return switch
 
+def account_logged():
+    try:
+        return account_access[:2]
+    except NameError:
+        return None
+
 def login_session(role=db_user):
     attempts = 3
     while attempts > 0:
@@ -30,7 +36,6 @@ def login_session(role=db_user):
         verify = authentication(role,username,password)
         if verify == True:
             print("Login Berhasil")
-            print(account_access)
             input()
             return 0
         else:
@@ -42,8 +47,41 @@ def login_session(role=db_user):
     print("<Attempts Out>")
     exit()
 
+def account_requirement(database,username,usr_req=True):
+    data = core.encryption_db(database,decrypt=True)
+
+    alphabet_lower = "abcdefghijklmnopqrstuvwxyz"
+    alphabet_upper = alphabet_lower.upper()
+    number = '1234567890'
+    symbol = '!@#$?'
+
+    # < USERNAME REQUIREMENTS >
+    # Check duplicate
+    for check in data[1:]:
+        usrname = check[1]
+        if usrname == username.strip():
+            usr_req = False
+    # Check length
+    if len(username) not in range(3,21):
+        usr_req = False
+    # Check symbol
+    for char in username:
+        if char not in alphabet_lower + alphabet_upper + number:
+            usr_req = False
+    # Check first number on username
+    if username[0].isdigit() == True:
+        usr_req = False
+    
+    # < PASSWORD REQUIREMENTS >
+
+
+    return usr_req
+
 def register_session():
-    pass
+    username = input("Username: ").strip()
+    tes = account_requirement(db_user,username)
+    print(tes)
+    exit()
 
 def main_gate():
     core.clear()
@@ -52,6 +90,7 @@ def main_gate():
             core.clear()
             login_session()
         case '2':
+            core.clear()
             register_session()
 
 if __name__ == '__main__':
